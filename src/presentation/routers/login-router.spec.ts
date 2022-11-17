@@ -7,7 +7,8 @@ interface IHttpRequest {
 
 class LoginRouter {
   route(httpRequest: IHttpRequest) {
-    if (!httpRequest.body.email || !httpRequest.body.password) {
+    const { email, password } = httpRequest.body
+    if (!email || !password) {
       return {
         statusCode: 400
       }
