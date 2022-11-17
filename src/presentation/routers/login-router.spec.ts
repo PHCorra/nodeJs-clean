@@ -7,7 +7,7 @@ interface IHttpRequest {
 
 class LoginRouter {
   route(httpRequest: IHttpRequest) {
-    if (!httpRequest.body.email) {
+    if (!httpRequest.body.email || !httpRequest.body.password) {
       return {
         statusCode: 400
       }
@@ -20,7 +20,17 @@ describe('Login Router', () => {
     const sut = new LoginRouter() // System under test
     const httpRequest = {
       body: {
-        password: 'any'
+        password: 'testPassword'
+      }
+    }
+    const httpResponse = sut.route(httpRequest)
+    expect(httpResponse!.statusCode).toBe(400)
+  })
+  test('Should return 400 if no password is provided', () => {
+    const sut = new LoginRouter() // System under test
+    const httpRequest = {
+      body: {
+        email: 'test@email'
       }
     }
     const httpResponse = sut.route(httpRequest)
