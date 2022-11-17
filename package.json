@@ -9,7 +9,8 @@
   "lint-staged": {
     "*.js, *.ts": [
       "eslint --fix --ext",
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ]
   },
   "husky": {
