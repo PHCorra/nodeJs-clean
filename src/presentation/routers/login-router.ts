@@ -8,6 +8,10 @@ type httpRequest = {
 } | undefined
 
 export class LoginRouter {
+  authUseCase: any
+  constructor(authUseCase: any) {
+    this.authUseCase = authUseCase
+  }
 
   route(httpRequest: httpRequest) {
     if (!httpRequest) {
@@ -23,5 +27,6 @@ export class LoginRouter {
     if (!password) {
       return HttpResponse.badRequest('password');
     }
+    this.authUseCase.auth(email, password)
   }
 }
