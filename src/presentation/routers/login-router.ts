@@ -31,6 +31,6 @@ export class LoginRouter {
     if (!acessToken) {
       return HttpResponse.unauthorizedError()
     }
-    return HttpResponse.ok();
+    return HttpResponse.ok({ acessToken });
   }
 }
