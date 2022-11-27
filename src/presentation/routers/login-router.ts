@@ -14,7 +14,7 @@ export class LoginRouter {
   }
 
   route(httpRequest: httpRequest) {
-    if (!httpRequest) {
+    if (!httpRequest || null || !this.authUseCase || !this.authUseCase.auth) {
       return HttpResponse.serverError('no httpRequest provided');
     }
     if (!httpRequest.body) {
