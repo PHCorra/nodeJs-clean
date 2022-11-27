@@ -13,7 +13,7 @@ export class LoginRouter {
     this.authUseCase = authUseCase
   }
 
-  route(httpRequest: httpRequest) {
+  async route(httpRequest: httpRequest) {
     try {
       const { email, password } = httpRequest!.body
       if (!email) {
@@ -22,7 +22,7 @@ export class LoginRouter {
       if (!password) {
         return HttpResponse.badRequest('password');
       }
-      const acessToken = this.authUseCase.auth(email, password)
+      const acessToken = await this.authUseCase.auth(email, password)
       if (!acessToken) {
         return HttpResponse.unauthorizedError()
       }

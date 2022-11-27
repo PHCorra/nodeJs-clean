@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1669564076552" clover="3.2.0">
-  <project timestamp="1669564076552" name="All files">
-    <metrics statements="95" coveredstatements="95" conditionals="16" coveredconditionals="16" methods="9" coveredmethods="9" elements="120" coveredelements="120" complexity="0" loc="95" ncloc="95" packages="2" files="4" classes="4"/>
+<coverage generated="1669564342737" clover="3.2.0">
+  <project timestamp="1669564342737" name="All files">
+    <metrics statements="95" coveredstatements="95" conditionals="17" coveredconditionals="17" methods="9" coveredmethods="9" elements="121" coveredelements="121" complexity="0" loc="95" ncloc="95" packages="2" files="4" classes="4"/>
     <package name="helpers">
       <metrics statements="51" coveredstatements="51" conditionals="7" coveredconditionals="7" methods="7" coveredmethods="7"/>
       <file name="http-response.ts" path="/home/phcorra/nodeJs-clean/src/presentation/helpers/http-response.ts">
@@ -66,9 +66,9 @@
       </file>
     </package>
     <package name="routers">
-      <metrics statements="44" coveredstatements="44" conditionals="9" coveredconditionals="9" methods="2" coveredmethods="2"/>
+      <metrics statements="44" coveredstatements="44" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
       <file name="login-router.ts" path="/home/phcorra/nodeJs-clean/src/presentation/routers/login-router.ts">
-        <metrics statements="44" coveredstatements="44" conditionals="9" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <metrics statements="44" coveredstatements="44" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -94,7 +94,7 @@
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="6" type="cond" truecount="1" falsecount="0"/>
-        <line num="26" count="10" type="cond" truecount="1" falsecount="0"/>
+        <line num="26" count="10" type="cond" truecount="2" falsecount="0"/>
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="2" type="cond" truecount="1" falsecount="0"/>
