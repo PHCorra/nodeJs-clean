@@ -1,5 +1,6 @@
 import { watchPlugins } from "../../../jest.config"
 import { MissingParamError } from "../helpers/missing-param-error"
+import { InvalidParamError } from "../helpers/invalid-param-error"
 import { UnauthorizedError } from "../helpers/unauthorizedError"
 import { LoginRouter } from "./login-router"
 
@@ -7,12 +8,26 @@ import { LoginRouter } from "./login-router"
 
 const makeSut = () => {
   const authUseCaseSpy = makeAuthUseCase()
+  const emailValidatorSpy = makeEmailValidator()
   authUseCaseSpy.acessToken = 'valid_token'
-  const sut = new LoginRouter(authUseCaseSpy)
+  const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
   return {
     sut,
-    authUseCaseSpy
+    authUseCaseSpy,
+    emailValidatorSpy
   }
+}
+
+const makeEmailValidator = () => {
+  class EmailValidatorSpy {
+    isEmailValid!: boolean
+    isValid(email: string) {
+      return this.isEmailValid
+    }
+  }
+  const emailValidatorSpy = new EmailValidatorSpy()
+  emailValidatorSpy.isEmailValid = true
+  return emailValidatorSpy
 }
 
 const makeAuthUseCase = () => {
@@ -119,7 +134,8 @@ describe('Login Router', () => {
 
 
   test('Should return 500 if no AuthUseCase is provided', async () => {
-    const sut = new LoginRouter(null);
+    const emailValidatorSpy = makeEmailValidator()
+    const sut = new LoginRouter(null, emailValidatorSpy);
     const httpRequest = {
       body: {
         email: 'any_email@test.com',
@@ -133,7 +149,7 @@ describe('Login Router', () => {
   test('Should return 500 if no AuthUseCase has no auth method', async () => {
     // class AuthUseCaseSpy { }
     // const authUseCaseSpy = new AuthUseCaseSpy();
-    const sut = new LoginRouter({});
+    const sut = new LoginRouter({}, {});
     const httpRequest = {
       body: {
         email: 'any_email@test.com',
@@ -146,7 +162,8 @@ describe('Login Router', () => {
 
   test('Should return 500 if AuthUseCase throw', async () => {
     const authUseCaseSpy = makeAuthUseCaseWithError()
-    const sut = new LoginRouter(authUseCaseSpy)
+    const emailValidatorSpy = makeEmailValidator()
+    const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
     const httpRequest = {
       body: {
         email: 'any_email@test.com',
@@ -157,16 +174,17 @@ describe('Login Router', () => {
     expect(httpResponse.statusCode).toBe(500)
   })
 
-  // test('Should return 400 if an invalid email is provided', async () => {
-  //   const { sut } = makeSut()
-  //   const httpRequest = {
-  //     body: {
-  //       email: 'invalid_email@test.com',
-  //       password: 'any_password'
-  //     }
-  //   }
-  //   const httpResponse = await sut.route(httpRequest)
-  //   expect(httpResponse.statusCode).toBe(400)
-  //   expect(httpResponse.body).toEqual(new InvalidParamError('email'))
-  // })
+  test('Should return 400 if an invalid email is provided', async () => {
+    const { sut, emailValidatorSpy } = makeSut()
+    emailValidatorSpy.isEmailValid = false
+    const httpRequest = {
+      body: {
+        email: 'invalid_email@test.com',
+        password: 'any_password'
+      }
+    }
+    const httpResponse = await sut.route(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new InvalidParamError('email'))
+  })
 })
