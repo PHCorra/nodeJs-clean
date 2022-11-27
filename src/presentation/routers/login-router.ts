@@ -14,23 +14,31 @@ export class LoginRouter {
   }
 
   route(httpRequest: httpRequest) {
-    if (!httpRequest || null || !this.authUseCase || !this.authUseCase.auth) {
-      return HttpResponse.serverError('no httpRequest provided');
+    try {
+      const { email, password } = httpRequest!.body
+      if (!email) {
+        return HttpResponse.badRequest('email');
+      }
+      if (!password) {
+        return HttpResponse.badRequest('password');
+      }
+      const acessToken = this.authUseCase.auth(email, password)
+      if (!acessToken) {
+        return HttpResponse.unauthorizedError()
+      }
+      return HttpResponse.ok({ acessToken });
+    } catch (error) {
+      return HttpResponse.serverError('ServerError')
     }
-    if (!httpRequest.body) {
-      return HttpResponse.serverError('no body provided');
-    }
-    const { email, password } = httpRequest.body
-    if (!email) {
-      return HttpResponse.badRequest('email');
-    }
-    if (!password) {
-      return HttpResponse.badRequest('password');
-    }
-    const acessToken = this.authUseCase.auth(email, password)
-    if (!acessToken) {
-      return HttpResponse.unauthorizedError()
-    }
-    return HttpResponse.ok({ acessToken });
+
+
+
+    // if (!httpRequest || null || !this.authUseCase || !this.authUseCase.auth) {
+    //   return HttpResponse.serverError('no httpRequest provided');
+    // }
+    // if (!httpRequest.body) {
+    //   return HttpResponse.serverError('no body provided');
+    // }
+
   }
 }
