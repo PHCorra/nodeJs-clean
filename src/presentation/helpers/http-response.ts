@@ -2,10 +2,10 @@ import { MissingParamError, MissingServerError } from "./missing-param-error"
 import { UnauthorizedError } from "./unauthorizedError"
 
 export class HttpResponse {
-  static badRequest(paramName: string) {
+  static badRequest(error: any) {
     return {
       statusCode: 400,
-      body: new MissingParamError(paramName)
+      body: error
     }
   }
 
