@@ -1,0 +1,6 @@
+{
+  "*.js, *.ts": [
+    "prettier --write",
+    "npm run test:staged"
+  ]
+}
