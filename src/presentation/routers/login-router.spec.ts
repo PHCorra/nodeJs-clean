@@ -1,7 +1,7 @@
 import { watchPlugins } from "../../../jest.config"
-import { MissingParamError, MissingServerError } from "../helpers/missing-param-error"
-import { InvalidParamError } from "../helpers/invalid-param-error"
-import { UnauthorizedError } from "../helpers/unauthorizedError"
+import { MissingParamError, MissingServerError } from "../errors"
+import { InvalidParamError } from "../errors"
+import { UnauthorizedError } from "../errors"
 import { LoginRouter } from "./login-router"
 
 

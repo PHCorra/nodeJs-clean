@@ -1,6 +1,6 @@
 import { HttpResponse } from "../helpers/http-response"
-import { InvalidParamError } from "../helpers/invalid-param-error"
-import { MissingParamError } from "../helpers/missing-param-error"
+import { InvalidParamError } from "../errors"
+import { MissingParamError } from "../errors"
 
 type httpRequest = {
   body?: any

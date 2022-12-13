@@ -1,5 +1,5 @@
-import { MissingParamError, MissingServerError } from "./missing-param-error"
-import { UnauthorizedError } from "./unauthorizedError"
+import { MissingParamError, MissingServerError } from "../errors"
+import { UnauthorizedError } from "../errors"
 
 export class HttpResponse {
   static badRequest(error: any) {
