@@ -13,7 +13,7 @@ describe('Email Validator', () => {
     expect(isEmailValid).toBe(true)
   })
 
-  test('Should return falkse if validator returns false', () => {
+  test('Should return false if validator returns false', () => {
     validator.isEmailValid = false;
     const sut = new EmailValidator()
     const isEmailValid = sut.isValid('invalid_email')
