@@ -1,11 +1,11 @@
 import { validator } from '../../__mocks__/validator';
 
+
 class EmailValidator {
   isValid(email: string) {
     return validator.isEmail(email);
   }
 }
-
 const makeSut = () => {
   return new EmailValidator()
 }
